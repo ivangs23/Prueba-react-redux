@@ -50,24 +50,34 @@ export const {
 
 export default mobileSlice.reducer;
 
-export const fetchAllMobiles = () => (dispatch) => {
+export const fetchAxiosGetCall = (url, data, call) => (dispatch) => {
   dispatch(setIsLoading());
   axios
-    .get('https://front-test-api.herokuapp.com/api/product')
+    .get(url, data)
     .then((response) => {
-      dispatch(setMobileList(response.data));
+      call && dispatch(call(response.data));
     })
     .catch((error) => console.log(error));
 };
 
-export const fetchDetailsMobile = (id) => (dispatch) => {
+export const fetchAxiosPostCall = (url, data, call, optionals) => (dispatch) => {
   dispatch(setIsLoading());
   axios
-    .get(`https://front-test-api.herokuapp.com/api/product/${id}`)
+    .post(url, data)
     .then((response) => {
-      dispatch(setDetailsMobile(response.data));
+      optionals
+        ? dispatch(call(optionals))
+        : call && dispatch(call(response.data));
     })
     .catch((error) => console.log(error));
+};
+
+export const fetchAllMobiles = () => (dispatch) => {
+  dispatch(fetchAxiosGetCall('https://front-test-api.herokuapp.com/api/product', '', setMobileList));
+};
+
+export const fetchDetailsMobile = (id) => (dispatch) => {
+  dispatch(fetchAxiosGetCall(`https://front-test-api.herokuapp.com/api/product/${id}`, '', setDetailsMobile));
 };
 
 export const fetchStateCart = (state) => (dispatch) => {
@@ -76,14 +86,8 @@ export const fetchStateCart = (state) => (dispatch) => {
 };
 
 export const fetchAddCart = (options, id, detailMobile) => (dispatch) => {
-  dispatch(setIsLoading());
-  axios
-    .post('https://front-test-api.herokuapp.com/api/cart', {
-      id,
-      ...options,
-    })
-    .then(() => {
-      dispatch(setCounterCart({ id, ...options, ...detailMobile }));
-    })
-    .catch((error) => console.log(error));
+  dispatch(fetchAxiosPostCall('https://front-test-api.herokuapp.com/api/cart', {
+    id,
+    ...options,
+  }, setCounterCart, { id, ...options, ...detailMobile }));
 };
