@@ -1,0 +1,29 @@
+.infoCart{
+  position: absolute;
+  right: 10px;
+  margin-top: 1%;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+  z-index: 999999;
+  width: 300px;
+}
+
+.infoCart ul{
+  padding: 0;
+  list-style: none;
+}
+
+.infoCart li{
+  padding: 5%;
+  height: 100px;
+}
+
+.infoCart img {
+  width: 15%;
+  margin-right: 5%;
+}
+
+.card{
+
+}

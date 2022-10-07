@@ -1,0 +1,51 @@
+.base {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 89vh;
+
+}
+
+.avatarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatarContainer img {
+  width: 40%;
+  min-height: 30%;
+}
+
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.actionsContainer {
+  display: flex;
+  align-items: center;
+}
+
+.back {
+  position: absolute;
+  margin: 2% 0 0 2%;
+
+}
+
+@media (max-width: 768px) {
+  .base {
+    height: auto;
+    overflow: auto;
+    padding: 10%;
+  }
+  .detailsContainer {
+    margin-top: 2%;
+    align-items: center;
+  }
+  .actionsContainer {
+    justify-content: center;
+  }
+}
